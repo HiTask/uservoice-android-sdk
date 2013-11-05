@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,9 +25,10 @@ import com.uservoice.uservoicesdk.model.User;
 import com.uservoice.uservoicesdk.rest.Callback;
 import com.uservoice.uservoicesdk.rest.RestResult;
 import com.uservoice.uservoicesdk.ui.DefaultCallback;
+import com.uservoice.uservoicesdk.ui.Utils;
 
 @SuppressLint("ValidFragment")
-public class SigninDialogFragment extends DialogFragment {
+public class SigninDialogFragment extends DialogFragmentBugfixed {
 	
 	private EditText emailField;
 	private EditText nameField;
@@ -60,6 +60,9 @@ public class SigninDialogFragment extends DialogFragment {
 		});
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        if (!Utils.isDarkTheme(getActivity())) {
+            builder.setInverseBackgroundForced(true);
+        }
 		builder.setTitle(R.string.uv_signin_dialog_title);
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View view = inflater.inflate(R.layout.uv_signin_layout, null);

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -17,9 +16,10 @@ import com.uservoice.uservoicesdk.deflection.Deflection;
 import com.uservoice.uservoicesdk.flow.SigninManager;
 import com.uservoice.uservoicesdk.model.Suggestion;
 import com.uservoice.uservoicesdk.ui.DefaultCallback;
+import com.uservoice.uservoicesdk.ui.Utils;
 
 @SuppressLint("ValidFragment")
-public class SubscribeDialogFragment extends DialogFragment {
+public class SubscribeDialogFragment extends DialogFragmentBugfixed {
 	
 	private final Suggestion suggestion;
 	private final SuggestionDialogFragment suggestionDialog;
@@ -33,6 +33,9 @@ public class SubscribeDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.uv_subscribe_dialog_title);
+        if (!Utils.isDarkTheme(getActivity())) {
+            builder.setInverseBackgroundForced(true);
+        }
 		View view = getActivity().getLayoutInflater().inflate(R.layout.uv_subscribe_dialog, null);
 		final EditText emailField = (EditText) view.findViewById(R.id.uv_email);
 		emailField.setText(Session.getInstance().getEmail());

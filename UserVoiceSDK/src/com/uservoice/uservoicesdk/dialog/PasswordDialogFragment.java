@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -14,9 +13,10 @@ import com.uservoice.uservoicesdk.R;
 import com.uservoice.uservoicesdk.Session;
 import com.uservoice.uservoicesdk.model.AccessToken;
 import com.uservoice.uservoicesdk.ui.DefaultCallback;
+import com.uservoice.uservoicesdk.ui.Utils;
 
 @SuppressLint("ValidFragment")
-public class PasswordDialogFragment extends DialogFragment {
+public class PasswordDialogFragment extends DialogFragmentBugfixed {
 
 	private final Runnable callback;
 
@@ -28,6 +28,9 @@ public class PasswordDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.uv_password_dialog_title);
+        if (!Utils.isDarkTheme(getActivity())) {
+            builder.setInverseBackgroundForced(true);
+        }
 		View view = getActivity().getLayoutInflater().inflate(R.layout.uv_password_dialog, null);
 		final EditText password = (EditText) view.findViewById(R.id.uv_password);
 		builder.setView(view);

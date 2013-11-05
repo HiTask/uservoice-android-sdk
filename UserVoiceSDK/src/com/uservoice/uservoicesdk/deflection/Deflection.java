@@ -29,7 +29,7 @@ public class Deflection {
 		Map<String,String> params = deflectionParams();
 		params.put("kind", kind);
 		params.put("deflector_id", String.valueOf(deflector.getId()));
-		params.put("deflector_type", (deflector instanceof Article) ? "Faq" : "Suggetion");
+		params.put("deflector_type", (deflector instanceof Article) ? "Faq" : "Suggestion");
 		new RestTask(RestMethod.GET, "/clients/omnibox/deflections/upsert.json", params, getCallback()).execute();
 	}
 	
@@ -70,7 +70,7 @@ public class Deflection {
 	private static Map<String, String> deflectionParams() {
 		Map<String,String> params = new HashMap<String,String>();
 		params.put("uvts", Babayaga.getUvts());
-		params.put("channel", Babayaga.CHANNEL);
+		params.put("channel", "android");
 		params.put("search_term", searchText);
 		params.put("interaction_identifier", String.valueOf(interactionIdentifier));
 		return params;

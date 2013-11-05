@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -19,9 +18,10 @@ import com.uservoice.uservoicesdk.flow.SigninManager;
 import com.uservoice.uservoicesdk.model.Comment;
 import com.uservoice.uservoicesdk.model.Suggestion;
 import com.uservoice.uservoicesdk.ui.DefaultCallback;
+import com.uservoice.uservoicesdk.ui.Utils;
 
 @SuppressLint("ValidFragment")
-public class CommentDialogFragment extends DialogFragment {
+public class CommentDialogFragment extends DialogFragmentBugfixed {
 
 	private final Suggestion suggestion;
 	private final SuggestionDialogFragment suggestionDialog;
@@ -34,6 +34,9 @@ public class CommentDialogFragment extends DialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        if (!Utils.isDarkTheme(getActivity())) {
+            builder.setInverseBackgroundForced(true);
+        }
 		builder.setTitle(R.string.uv_post_a_comment);
 
 		View view = getActivity().getLayoutInflater().inflate(R.layout.uv_comment_dialog, null);
@@ -62,7 +65,7 @@ public class CommentDialogFragment extends DialogFragment {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				final String text = textField.getText().toString();
-				if (!text.trim().isEmpty()) {
+				if (text.trim().length() > 0) {
 					SigninManager.signIn(getActivity(), emailField.getText().toString(), nameField.getText().toString(), new Runnable() {
 						@Override
 						public void run() {
