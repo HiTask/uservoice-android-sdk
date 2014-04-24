@@ -28,8 +28,12 @@ build.xml
 ant.properties
 local.properties
 proguard.cfg
-proguard-project.txt
+#proguard-project.txt
 
 # Other
 .DS_Store
 tmp
+signing.properties
+
+#Crashlytics
+com_crashlytics_export_strings.xml
